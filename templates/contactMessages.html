@@ -1,0 +1,37 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    {% for contact in messages %} {# loops through all entries in contact table in the database #}
+        <p>
+        <hr class="horizontal-divider">
+        <div class="row">
+            <div class="col-6">
+
+                {# Message Id #}
+                <span class="fw-bold">Message id: </span>
+                {{ contact.id }}<br>
+
+                {# Users name #}
+                <span class="fw-semibold">Name: </span>
+                {{ contact.name }}<br>
+
+                {# Users email #}
+                <span class="fw-semibold">Email: </span>
+                {{ contact.email }}<br>
+
+                {# Date Submitted #}
+                <p>
+                    <span class="fw-semibold">Date submitted: </span>
+                    {{ contact.dateSubmitted.strftime('%H:%M - %d/%m/%Y') }} {# as Hour:Minuite - Day/Month/Year #}
+                </p>
+            </div>
+
+            {# Users Message #}
+            <div class="col-6">
+                <span class="fw-bold">Message: </span>
+                {{ contact.message }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

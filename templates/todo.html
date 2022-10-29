@@ -1,0 +1,72 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+
+    {# Add New To Do #}
+    <div class="row">
+
+        {# vertical divider creates a line between this and the to do list column #}
+        <div class="col-5 vertical-divider">
+
+            <h2>Add Todo</h2>
+
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+
+                <p>
+                    {{ form.text(size=32) }}<br> {# sets size of input box #}
+                    {% for error in form.text.errors %} {# displays error if contains invalid entry #}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+
+                <p>
+                    {{ form.submit(size=32) }}<br> {# sets size of input box #}
+                    {% for error in form.submit.errors %} {# displays error if contains invalid entry #}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+
+            </form>
+        </div>
+
+        {# To do List #}
+        <div class="col-7">
+
+            <h2>Todo List</h2>
+
+            {# loops through all entries in to do table in the database #}
+            {% for todo in todos %}
+
+                {# horizontal divider creates a line between each to do entry #}
+                <p>
+                <hr class="horizontal-divider">
+
+                <form class="inline" method="POST" action="/todoedit/{{ todo.id }}">
+                    {# hidden checkbox to help with submitting value for form #}
+                    <input type="hidden" name="done" value="0">
+
+                    {# little checkbox #}
+                    <input type="checkbox" name="done" {% if todo.done == True %}
+                           checked {% endif %}>
+
+                    {# input showing text of to do #}
+                    <input type="text" title="{{ todo.dateAdded }}" value="{{ todo.text }}" name="text"
+                           class="form-floating">
+
+                    {# update button #}
+                    <button type="submit" value="update" class="btn btn-outline-dark">Save</button>
+                </form>
+
+                {# delete button #}
+                <form class="inline" method="GET" action="/todoedit/{{ todo.id }}">
+                    <button style="float: right" type="submit" value="delete" class="btn btn-secondary"><i
+                            class="fa fa-trash-o"></i></button>
+                </form>
+                <br>
+            {% endfor %}
+            <br>
+        </div>
+    </div>
+{% endblock %}

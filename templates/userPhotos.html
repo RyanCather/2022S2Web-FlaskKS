@@ -1,0 +1,78 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    <div class="row">
+        <div class="col-6 vertical-divider">
+
+            <h2>Upload Photo</h2> <br>
+
+            <form method="post" enctype="multipart/form-data" action="">
+                {{ form.hidden_tag() }}
+
+                {# Photo Name #}
+                <p>
+                    {{ form.title.label }}<br> {# sets name of input #}
+                    {{ form.title(size=64) }}<br> {# sets size of input box #}
+                    {% for error in form.title.errors %} {# displays error if contains invalid entry #}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+
+                {# Photo Upload#}
+                <p>
+                    {{ form.image.label }}<br> {# sets name of input #}
+                    {{ form.image(size=64) }}<br> {# sets size of input box #}
+                    {% for error in form.image.errors %} {# displays error if contains invalid entry #}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+
+                <p>{{ form.submit() }}</p> {# submit button for form #}
+            </form>
+        </div>
+
+        <div class="col-6">
+            <div class="row">
+
+                <h2>Your Photos</h2>
+
+                {# loops through all photos current user has uploaded #}
+                {% for image in images %}
+
+                    <hr class="horizontal-divider">
+                    <div class="col-6">
+
+                        {# Photo Name #}
+                        <span class="fw-semibold">Name: </span>{{ image.title }}<br>
+
+                        {# Date Uploaded (as Hour:Minuite - Day/Month/Year) #}
+                        <span class="fw-semibold">Date Uploaded: </span>{{ image.dateSubmitted.strftime('%H:%M - %d/%m/%Y') }}
+
+                        {% if not image.enabled %}
+                            <span class="fw-bolder" style="color: darkred">This image is currently disabled</span>
+                        {% endif %}
+                    </div>
+
+                    {# Photo (as a link) #}
+                    <div class="col-5">
+                        <a href="/userPhotos/{{ image.photoid }}">
+                            <img class="align-right img-border"
+                                 src="/static/images/userPhotos/{{ image.filename }}"
+                                 width="50%">
+                        </a>
+                    </div>
+
+                    {# delete button #}
+                    <div class="col-1">
+                        <form method="GET" action="/photodelete/{{ image.photoid }}">
+                            <button style="float: right" type="submit" value="delete" class="btn btn-secondary"><i
+                                    class="fa fa-trash-o"></i></button>
+                        </form>
+                    </div>
+                {% endfor %}
+                <hr class="horizontal-divider">
+            </div>
+        </div>
+    </div>
+{% endblock %}

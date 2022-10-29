@@ -1,0 +1,50 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+
+    <div class="grid-container">
+        <div class="row">
+            <div class="col-12">
+                Upload your own photos:
+                <a href="/userPhotos">
+                    <button class="btn btn-primary" href="/userPhotos">Your Photos</button>
+                </a>
+                <br><br>
+            </div>
+            {% for image in images %} {# loops through all images in database #}
+                {% if image.enabled %}
+                    <div class="col-4">
+                        <div class="border">
+
+                            {# Image Name#}
+                            <span class="fw-semibold">Name: </span>{{ image.title }} <br>
+
+                            {# Image Uploaded by #}
+                            <span class="fw-semibold">Uploaded by: </span>
+                            {# loops through all users in the user table #}
+                            {% for user in users %}
+                                {# finds the same user (by id) who uploaded the image in the user table #}
+                                {% if user.id == image.userid %}
+                                    {# displays that users' name #}
+                                    {{ user.name }}
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+
+                            {# Date Uploaded (as Hour:Minuite - Day/Month/Year) #}
+                            <span class="fw-semibold">Date Uploaded: </span>{{ image.dateSubmitted.strftime('%H:%M - %d/%m/%Y') }}
+                            <br><br>
+
+                            {# Image #}
+                            <a href="/userPhotos/{{ image.photoid }}">
+                                <img class="centre-img img-border" src="/static/images/userPhotos/{{ image.filename }}"
+                                     width="50%">
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

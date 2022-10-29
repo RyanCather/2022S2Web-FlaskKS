@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"><strong>ID</strong></div>
+            <div class="col-2"><strong>Name</strong></div>
+            <div class="col-3"><strong>Email</strong></div>
+            <div class="col-1"><strong>Level</strong></div>
+            <div class="col-1"><strong>Active</strong></div>
+            <div class="col-4"><strong>Actions</strong></div>
+        </div>
+        <div class="horizontal-divider"></div>
+        {% for user in users %}
+            <div class="row">
+                <div class="col-1 vertical-divider">{{ user.id }}</div>
+                <div class="col-2 vertical-divider">{{ user.name }}</div>
+                <div class="col-3 vertical-divider">{{ user.email_address }}</div>
+
+                {# user level #}
+                {% if user.user_level == 1 %}
+                    <div class="col-1 vertical-divider">user</div>
+                {% elif user.user_level == 2 %}
+                    <div class="col-1 vertical-divider" style="color: darkblue">admin</div>
+                {% else %}
+                    <div class="col-1 vertical-divider"><strong>error: </strong>{{ user.user_level }}</div>
+                {% endif %}
+
+                {# account active #}
+                {% if user.active == 1 %}
+                    <div class="col-1 vertical-divider">Enabled</div>
+                {% else %}
+                    <div class="col-1 vertical-divider">Disabled</div>
+                {% endif %}
+
+                {# buttons #}
+                <div class="col-4">
+                    <a href="/admin/user_enable_disable/{{ user.id }}">
+                        {% if user.active == 1 %}
+                            <button class="btn btn-danger btn-sm">Disable User</button>
+                        {% else %}
+                            <button class="btn btn-success btn-sm">Enable User</button>
+                        {% endif %}
+                    </a>
+                    <a style="float: right" href="/reset_password_admin/{{ user.id }}">
+                        <button class="btn btn-secondary btn-sm">Reset Password</button>
+                    </a>
+                </div>
+            </div>
+            <div class="soft-horizontal-divider"></div>
+        {% endfor %}
+    </div>
+{% endblock %}

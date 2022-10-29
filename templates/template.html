@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="ngunnawalnew.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {# font awesome #}
+    <script src="/static/js/bootstrap.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {# jquery #}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {# boostrap js #}
+    {% block pageStyle %}
+    {% endblock %}
+</head>
+<body>
+
+<!-- Nav bar -->
+<nav class="navbar navbar-expand-lg bg-light sticky-top">
+    <div class="container-fluid">
+
+        {# Logo in nav-bar (brings user to index page) #}
+        <a href="/">
+            <img src="/static/images/logo.png" alt="logo" width="60" height="60">
+        </a>
+
+        {# button for expanding nav-bar, used when screen is small #}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {# Left Side of Nav Bar #}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {# list of all nav-bar elements in order #}
+
+                {# Index/Home page #}
+                <li class="nav-item">
+                    <a class="nav-link underline" href="/">Home</a>
+                </li>
+
+                {# History Page #}
+                <li class="nav-item">
+                    <a class="nav-link underline" href="/history">History</a>
+                </li>
+
+
+                {# checks if user is admin #}
+                {% if user.user_level == 2 %}
+
+                    {# photo album dropdown for admins #}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle underline" href="/" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Photo Gallery
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-light"
+                            aria-labelledby="navbarDropdown">
+
+                            {# default contact page #}
+                            <li><a class="dropdown-item underline" href="/gallery">Photo Gallery</a></li>
+
+                            {# divider #}
+                            <div class="dropdown-divider"></div>
+
+                            {# view contact messages #}
+                            <li><a class="dropdown-item underline" href="/admin/list_all_photos">All Photos</a></li>
+                        </ul>
+                    </li>
+
+                    {# contact dropdown for admins #}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle underline" href="/" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Contact Us
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-light"
+                            aria-labelledby="navbarDropdown">
+
+                            {# default contact page #}
+                            <li><a class="dropdown-item underline" href="/contact">Contact Page</a></li>
+
+                            {# divider #}
+                            <div class="dropdown-divider"></div>
+
+                            {# view contact messages #}
+                            <li><a class="dropdown-item underline" href="/contact_messages">Contact Messages</a></li>
+                        </ul>
+                    </li>
+
+                    {# List users page #}
+                    <li>
+                        <a class="nav-link underline" href="/admin/list_all_users">All users</a>
+                    </li>
+
+                {% else %}
+                    {# else if user is not an admin #}
+
+                    {# Photo Album Gallery #}
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="/gallery">Photo Gallery</a>
+                    </li>
+
+                    {# Contact us page #}
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="/contact">Contact Us</a>
+                    </li>
+                {% endif %}
+
+                {# To Do page #}
+                <li class="nav-item">
+                    <a class="nav-link underline" href="/todo">To-Do</a>
+                </li>
+            </ul>
+        </div>
+
+        {# search box and button #}
+        <form class="d-flex" role="search">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+
+        {# Right side of Nav Bar#}
+        <div class="nav navbar-nav">
+
+            {# if user is not logged in #}
+            {% if user.is_anonymous %}
+
+                {# User Account Dropdown #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle underline" href="/" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Log in
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                        {# Log in#}
+                        <li><a class="dropdown-item" href="/login">Log In</a></li>
+
+                        {# divider#}
+                        <div class="dropdown-divider"></div>
+
+                        {# Regsiter account #}
+                        <li><a class="dropdown-item" href="/register">Register Account</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                {# if user is logged in #}
+
+                {# logged in user dropdown #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle underline" href="/" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+
+                        {# display user name #}
+                        {{ user.name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                        {# User profile #}
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+
+                        {# User Photos#}
+                        <li><a class="dropdown-item" href="/userPhotos">User Photos</a></li>
+
+                        {# divider #}
+                        <div class="dropdown-divider"></div>
+
+                        {# Reset password #}
+                        <li><a class="dropdown-item" href="/reset_password">Reset Password</a></li>
+
+                        {# User logout #}
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{# Banner #}
+<div class="banner">
+    <img style="margin-bottom: 0.5em" src="/static/images/banner_small.png" alt="website banner">
+</div>
+
+{# Flash messages #}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes align-page-width">
+            {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible" role="alert">
+                    {{ message }}
+                    {# dissmiss button #}
+                    <btn style="float: right" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </btn>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+{# Page Content (all page information/content goes in these) #}
+<div class="container-fluid">
+
+    {# New title row #}
+    <div class="row">
+        <div class="col-12 align-centre">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+
+    {# New main row #}
+    <div class="row">
+        <div class="col-12">
+            {% block cellContent1 %} {% endblock %}
+        </div>
+    </div>
+
+    {# New optional row, contains two optional columns #}
+    <div class="row">
+        <div class="col-6">
+            {% block cellContent2 %} {% endblock %}
+        </div>
+        <div class="col-6">
+            {% block cellContent3 %} {% endblock %}
+        </div>
+    </div>
+
+    {# New optional row #}
+    <div class="row">
+        <div class="col-12">
+            {% block cellContent4 %} {% endblock %}
+        </div>
+    </div>
+</div>
+
+{# Footer #}
+<div class="footer sticky-bottom border-top border-3">
+    Page Footer
+</div>
+</body>
+</html>

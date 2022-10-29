@@ -1,0 +1,68 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    <div class="container text-left">
+        <div class="row">
+
+            {# User Name #}
+            <div class="col-md-3 fw-bold">
+                User Name:
+            </div>
+            <div class="col-md-6">
+                {{ user.name }}
+            </div>
+        </div>
+        <div class="row">
+
+            {# Email Address #}
+            <div class="col-md-3 fw-bold">
+                Email Address:
+            </div>
+            <div class="col-md-6">
+                {{ user.email_address }}
+            </div>
+        </div>
+        <div class="row">
+
+            {# User Level#}
+            <div class="col-md-3 fw-bold">
+                User Level:
+            </div>
+            <div class="col-md-6">
+                {% if user.user_level == 1 %}
+                    User
+                {% elif user.user_level == 2 %}
+                    Administrator
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            {# Password reset button #}
+            <div class="col-md-3 fw-bold">
+                Change Password:
+            </div>
+            <div class="col-md-6">
+                <a href="/reset_password">
+                    <button class="btn btn-sm btn-secondary">Reset password</button>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            {# User photos button #}
+            <div class="col-md-3 fw-bold">
+                Upload Photo:
+            </div>
+            <div class="col-md-6">
+                <a href="/userPhotos">
+                    <button class="btn btn-sm btn-secondary">Your photos</button>
+                </a>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    <form class="inline" action="" method="post">
+        {{ form.hidden_tag() }}
+
+        {# Email #}
+        <p>
+            {{ form.email_address.label }}<br> {# sets name of input #}
+            {{ form.email_address(size=32) }}<br> {# sets size of input box #}
+            {% for error in form.email_address.errors %} {# displays error if contains invalid entry #}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        {# Password #}
+        <p>
+            {{ form.password.label }}<br> {# sets name of input #}
+            {{ form.password(size=32) }}<br> {# sets size of input box #}
+            {% for error in form.password.errors %} {# displays error if contains invalid entry #}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p class="inline">{{ form.submit() }}</p> {# submit button for form #}
+    </form>
+    <form style="float: right" class="inline">
+        <button class="btn btn-secondary">Register here</button>
+    </form>
+{% endblock %}
