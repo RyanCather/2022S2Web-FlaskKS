@@ -1,28 +1,65 @@
 <!DOCTYPE html>
+<html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ngunnawal Country Website</title>
+    <title>Welcome to the History Page</title>
     <link rel="stylesheet" href="../ngunnawalnew.css">
-
 
 </head>
 <body>
 
-<!-- This is the navbar -->
-<div class="navbar">
-    <img src="images/logo.png" style="width:150px;height:150px;" >
-    <a href="index.html">Home</a>
-    <a href="history.html">History</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact Us</a>
-    <img src="images/photos/banner.png" style="width:520px; height:145px;" >
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 
-    <div id="container">
-        <div id="label">Search 🔎</div>
-    </div>
-</div class>
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
 
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a class="active" href="index.html">Home</a></li>
+  <li><a href="contact.html">Contact Us</a></li>
+  <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="history.html">History</a></li>
+  <li style="float:right"><a href="#about">About</a></li>
+</ul>
+
+</body>
 
 <div class="grid-container"> <!-- Overall Layout -->
     <div class="full-width">

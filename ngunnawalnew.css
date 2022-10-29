@@ -15,7 +15,7 @@
 }
 
 body{
-    background-color: #b36cef;
+    background-color: #ffffff;
 }
 
 footer {
@@ -30,14 +30,14 @@ footer {
 .navbar a {
     float: none;
     font-size: 1.35em;
-    color: #000000;
+    color: #b2a7a7;
     text-align: center;
     padding: 1em 1em;
     text-decoration: underline;
 }
 
 .navbar a:hover {
-    background-color: #eec04a;
+    background-color: #ffffff;
 }
 
 
@@ -56,7 +56,7 @@ footer {
 #container {
     height: 50px;
     width: 210px;
-    border: 1px solid black;
+    border: 1px solid #ffffff;
     position: relative;
     top: -153px;
     right:-1120px;
@@ -76,5 +76,5 @@ footer {
 form {
     color: #2a0e0e;
     font-size: large;
-    background-color: rgb(46, 232, 187);
+    background-color: rgb(255, 255, 255);
 }
