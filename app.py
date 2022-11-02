@@ -18,9 +18,8 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # for these imports they must be after (db = SQLAlchemy(app))
-from models.py import class ContactForm, class Todo, class User, class Photos
-from models.py import class ContactForm,class User(UserMixin, db.Model):, @login.user_loader, ResetPasswordForm, ResetPasswordFormAdmin, PhotoUploadForm, \
-    TodoForm
+from models import Contact, Todo, User, Photos
+from forms import ContactForm, ResetPasswordForm, ResetPasswordFormAdmin, PhotoUploadForm, TodoForm, LoginForm, RegistrationForm
 
 # The index or Homepage Code
 @app.route('/')
@@ -41,7 +40,7 @@ def history():
 # The Contact Us Page Code for the Website
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    form = ContactForm()
+    form = Contact()
     if form.validate_on_submit():  # if all input boxes have valid entries
         new_contact = Contact(name=form.name.data, email=form.email.data,
                               message=form.message.data)  # new variable to store data from form
@@ -255,7 +254,7 @@ def register():
 
 
 # Login into the page
-@app.route('login', methods=["GET", "POST"])
+@app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():  # if form is valid
@@ -277,14 +276,14 @@ def login():
 
 
 # User profile function
-@app.route('userprofile', methods=['GET', 'POST'])
+@app.route('/userprofile', methods=['GET', 'POST'])
 @login_required
 def profile():
     return render_template("userProfile.html", title="User Profile", user=current_user)
 
 
 # reset password function
-@app.route('reset_password_admin/', methods=['GET', 'POST'])
+@app.route('/reset_password_admin/', methods=['GET', 'POST'])
 @login_required
 def reset_password():
     form = ResetPasswordForm()  # gets form submitted
