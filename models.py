@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 # for contact us form to use what the user has submitted
-class ContactForm(db.Model):
+class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text)
     email = db.Column(db.Text)
