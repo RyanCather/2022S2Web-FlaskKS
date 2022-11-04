@@ -1,0 +1,107 @@
+{% extends 'template.html' %}
+
+{# Place the content for the cellContent1 in this block #}
+{% block cellContent1 %}
+    {% for image in photo %} {# this only loops once but is needed #}
+        {% if image.enabled %}
+            <div class="align-centre">
+                <div class="row">
+                    <div class="col-2">
+                        {% if image.photoid == 1 %}
+                            <button class="btn btn-outline-secondary">← Previous Image</button>
+                        {% else %}
+                            <form name="previous" method="GET" action="/userPhotos/{{ image.photoid - 1 }}">
+                                <button name="previous" class="btn btn-secondary">← Previous Image</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <div class="col-8">
+                        {# Image Name #}
+                        <span class="fw-semibold">Name: </span>{{ image.title }} <br>
+
+                        {# User who uploaded the image #}
+                        <span class="fw-semibold">Uploaded by: </span>
+                        {# loops through all users in the user table #}
+                        {% for user in users %}
+                            {# finds the same user (by id) who uploaded the image in the user table #}
+                            {% if user.id == image.userid %}
+                                {# displays that users' name #}
+                                {{ user.name }}
+                            {% endif %}
+                        {% endfor %}
+                        <br>
+
+                        {# Date Uploaded (as Hour:Minuite - Day/Month/Year)#}
+                        <span class="fw-semibold">Date Uploaded: </span>{{ image.dateSubmitted.strftime('%H:%M - %d/%m/%Y') }}
+                        <br>
+                    </div>
+                    <div class="col-2">
+                        {% if max_photo == image.photoid %}
+                            <button class="btn btn-outline-secondary">Next Image →</button>
+                        {% else %}
+                            <form name="next" method="GET" action="/userPhotos/{{ image.photoid + 1 }}">
+                                <button name="next" class="btn btn-secondary">Next Image →</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Image #}
+                <img class="centre-img img-border" src="/static/images/userPhotos/{{ image.filename }}" width="60%">
+
+            </div>
+            <br>
+
+            {# Back button to the gallery #}
+            <a href="/gallery">
+                <button class="btn btn-secondary">← Back to Photo Gallery</button>
+            </a>
+            <br><br>
+
+            {# Back button to user photos #}
+            <a href="/userPhotos">
+                <button class="btn btn-secondary">← Back to Your Photos</button>
+            </a>
+            <br><br>
+        {% else %}
+            <div class="row align-centre">
+                <div class="col-3">
+                    {# Back button to the gallery #}
+                    <a href="/gallery">
+                        <button class="btn btn-secondary">← Back to Photo Gallery</button>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <br>This image doesn't seem to exist any more :(<br><br>
+                </div>
+                <div class="col-3">
+                    {# Back button to user photos #}
+                    <a href="/userPhotos">
+                        <button class="btn btn-secondary">Back to Your Photos →</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {# no image??? #}
+    {% if photo|length == 0 %}
+        <div class="row align-centre">
+            <div class="col-3">
+                {# Back button to the gallery #}
+                <a href="/gallery">
+                    <button class="btn btn-secondary">← Back to Photo Gallery</button>
+                </a>
+            </div>
+            <div class="col-6">
+                <br>This image doesn't seem to exist any more :(<br><br>
+            </div>
+            <div class="col-3">
+                {# Back button to user photos #}
+                <a href="/userPhotos">
+                    <button class="btn btn-secondary">Back to Your Photos →</button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
