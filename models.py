@@ -1,8 +1,8 @@
-from app import db, login
+from app import login
 from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from app import db
 
 # for contact us form to use what the user has submitted
 class Contact(db.Model):
@@ -40,14 +40,13 @@ class Photos(db.Model):
 # for To do form to use what the user has submitted
 class Todo (db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer)
+   # user_id = db.Column(db.Integer)
     text = db.Column(db.Text)
     done = db.Column(db.Boolean)
 
-    def __init__(self, text, user_id, done):
-        self.user_id = user_id
+    def __init__(self, text):
         self.text = text
-        self.done = done
+        self.done = False
 
 
 # for user registration

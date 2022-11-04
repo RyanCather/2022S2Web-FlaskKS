@@ -40,7 +40,7 @@ def history():
 # The Contact Us Page Code for the Website
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    form = Contact()
+    form = ContactForm()
     if form.validate_on_submit():  # if all input boxes have valid entries
         new_contact = Contact(name=form.name.data, email=form.email.data,
                               message=form.message.data)  # new variable to store data from form
@@ -201,17 +201,18 @@ def allowed_file(filename):
 # The To Do Page
 @app.route('/todo', methods=["POST", "GET"])
 def todo_page():
-    if current_user.is_anonymous:  # if the user isn't logged in
-        all_todo = db.session.query(todo).filter_by(user_id=0).all()  # gets nothing
-    else:
-        all_todo = db.session.query(todo).filter_by(user_id=current_user.id).all()  # gets all todos of user logged in
+    #if current_user.is_anonymous:  # if the user isn't logged in
+      #  all_todo = db.session.query(Todo).filter_by(user_id=0).all()  # gets nothing
+   # else:
+     #   all_todo = db.session.query(Todo).filter_by(user_id=current_user.id).all()  # gets all todos of user logged in
+    all_todo = db.session.query(Todo).all()
     form = TodoForm()
     if form.validate_on_submit():  # if form is attempting to submit data
         if current_user.is_anonymous:  # if user is not logged in
             flash("You must be logged in to use this feature")  # error message
             return redirect(url_for("login"))  # redirect to login page
         else:
-            new_todo = todo(text=form.text.data, user_id=current_user.id)  # new variable to store data from form
+            new_todo = Todo(text=form.text.data)  # new variable to store data from form
             db.session.add(new_todo)  # adds new entry into the to do table
             db.session.commit()  # commits added entry (row) to database
          #   db.session.refresh(new_todo)  # refreshes the database
@@ -225,14 +226,14 @@ def todo_page():
                                            "GET"])  # route accepts variable (link/todoedit/<varialbe>) this refers to entry in table with id of <todo_id>
 def edit_todo(todo_id):
     if request.method == "POST":  # if form is attempting to submit data
-        db.session.query(todo).filter_by(id=todo_id).update(
+        db.session.query(Todo).filter_by(id=todo_id).update(
             {  # finds entry in db with matching id to todo_id and updates it
                 "text": request.form['text'],
                 "done": True if request.form['done'] == "1" else False
             })
         db.session.commit()  # commits any changes to db
     elif request.method == "GET":  # if the form is submitted with GET method (trying to access something in the db)
-        db.session.query(todo).filter_by(
+        db.session.query(Todo).filter_by(
             id=todo_id).delete()  # finds entry in db with matching id to todo_id and removes it
         db.session.commit()  # commits any changes to db
     return redirect("/todo", code=302)  # redirects user to the normal to do page

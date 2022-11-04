@@ -25,8 +25,8 @@
 
         {# comment #}
         <p>
-            {{ form.comment.label }}<br> {# sets name of input #}
-            {{ form.comment(size=32) }}<br> {# sets size of input box #}
+            {{ form.message.label }}<br> {# sets name of input #}
+            {{ form.message(size=32) }}<br> {# sets size of input box #}
             {% for error in form.message.errors %} {# displays error if contains invalid entry #}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
