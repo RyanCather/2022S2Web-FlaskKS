@@ -284,7 +284,7 @@ def profile():
 
 
 # reset password function
-@app.route('/reset_password_admin/', methods=['GET', 'POST'])
+@app.route('/reset_password/', methods=['GET', 'POST'])
 @login_required
 def reset_password():
     form = ResetPasswordForm()  # gets form submitted
