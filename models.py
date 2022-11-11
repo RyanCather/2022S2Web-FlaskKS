@@ -55,6 +55,7 @@ class User(UserMixin, db.Model):
     email_address = db.Column(db.String(255), unique=True)
     name = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
+
     user_level = db.Column(db.Integer)
     active = db.Column(db.Boolean)
 
