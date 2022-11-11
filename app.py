@@ -120,7 +120,7 @@ def photos():
             flash("The file upload failed")  # display error message to user
     return render_template("userPhotos.html", user=current_user, form=form, images=user_images)
 
-
+#delete a uploaded photo
 @app.route("/photodelete/<photo_id>", methods=['GET', 'POST'])
 @login_required
 def photo_delete(photo_id):
@@ -131,7 +131,7 @@ def photo_delete(photo_id):
         flash("Image successfully deleted!")
     return redirect("/userPhotos")
 
-
+#admin photo delete
 @app.route("/admin/photodeleteadmin/<photo_id>", methods=['GET', 'POST'])
 @login_required
 def photo_delete_admin(photo_id):
@@ -277,7 +277,7 @@ def login():
 
 
 # User profile function
-@app.route('/userprofile', methods=['GET', 'POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     return render_template("userProfile.html", title="User Profile", user=current_user)
@@ -298,6 +298,17 @@ def reset_password():
         return redirect(url_for('homepage'))  # redirects user to home page
     return render_template("passwordreset.html", title='Reset Password', form=form, user=current_user)
 
+# enable / disable user account
+@app.route('/admin/user_enable_disable/<userid>')
+@login_required
+def user_enable_disable(userid):
+    if not current_user.is_admin():  # checks if user is not an admin
+        flash("You must be an administrator to access this page")
+        return redirect(url_for('homepage'))
+    user = User.query.filter_by(id=userid).first()  # finds user selected
+    user.active = not user.active  # switches boolean value in table
+    db.session.commit()
+    return redirect(url_for("list_all_users"))
 
 # logout page function
 @app.route('/logout')
