@@ -1,80 +1,266 @@
+/*whole page*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #cff2ec;
+}
+
+/**** BANNER *****/
+
+.banner > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+/**** DISPLAY GRID ****/
+
+/*period (.) means it is a class*/
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto; /*2 column grid, auto resize for width*/
     grid-gap: 1em;
     padding: 1em;
 }
 
+/*the div tags that are direct children of the grid-container*/
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1em;
+}
+
+.centre-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.img-border {
+    border: 3px solid #969696;
+}
+
+.img-border:hover {
+    border: 3px solid #3f3f3f;
+}
+
+/*span 2 cells across page*/
 .full-width {
     grid-column-start: 1;
     grid-column-end: 3;
 }
 
-.double-height{
-    grid-row-start: span 2;
-}
-
-body{
-    background-color: #ffffff;
-}
-
-footer {
-    margin-top: auto;
-}
-
-.navbar {
-    overflow: hidden;
-    background-color: #ffffff;
-}
-
-.navbar a {
-    float: none;
-    font-size: 1.35em;
-    color: #b2a7a7;
+.full-width > h1 {
+    color: #2a382b;
     text-align: center;
-    padding: 1em 1em;
-    text-decoration: underline;
 }
-
-.navbar a:hover {
-    background-color: #ffffff;
-}
-
 
 .main-content {
     grid-row-start: 2;
     grid-row-end: 4;
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
+.align-left {
+    text-align: left;
 }
 
-#container {
-    height: 50px;
-    width: 210px;
-    border: 1px solid #ffffff;
-    position: relative;
-    top: -153px;
-    right:-1120px;
-}
-
-#label {
-    position: absolute;
-    top: 5px;
-    left: 0px;
-    height: 5px;
-    width: 10px;
-    background-color: white;
+.align-centre {
     text-align: center;
-
 }
 
-form {
-    color: #2a0e0e;
-    font-size: large;
-    background-color: rgb(255, 255, 255);
+.align-right {
+    text-align: right;
 }
+
+/**** NAVBAR ****/
+
+/*navbar logo*/
+.navbar > img {
+    float: left;
+    text-align: center;
+    padding: 0.5em 0.5em;
+    margin-top: 8px;
+}
+
+.navbar > a {
+    float: left;
+    font-size: 1em;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 1.8em 1em;
+    text-decoration: none;
+}
+
+.navbar > a:hover {
+    background-color: #bebebe;
+}
+
+.navbar .search-container {
+    float: right;
+}
+
+/*search box inside the navigation bar*/
+.navbar input[type=text] {
+    float: right;
+    padding: 1em;
+    border: none;
+    margin-top: 14px;
+    margin-right: 0;
+    font-size: 14px;
+}
+
+/*search button*/
+.navbar .search-container button {
+    float: right;
+    padding: 1em;
+    margin-top: 14px;
+    margin-right: 20px;
+    background: #ddd;
+    font-size: 11px;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar .search-container button:hover {
+    background: #ccc;
+}
+
+.underline:hover {
+    text-decoration: underline;
+}
+
+/**** ALIGNMENT ****/
+
+/*used to fix the alerts position on the page*/
+.align-page-width {
+    margin: 0;
+    padding: 1px;
+}
+
+.inline {
+    display: inline;
+}
+
+/**** FOOTER ****/
+
+.footer {
+    overflow: hidden;
+    background-color: rgb(245, 245, 245);
+    width: 100%;
+    bottom: 0;
+}
+
+/*footer positioning*/
+.footer > p {
+    float: bottom;
+    padding-left: 1em;
+}
+
+/*horizontal separators (used on contact messages & to do page)*/
+hr.horizontal-divider {
+    border-top: 3px solid #969696;
+}
+
+div.horizontal-divider {
+    border-top: 3px solid #bbb;
+}
+
+div.soft-horizontal-divider {
+    border-top: 3px solid #ededed;
+}
+
+/*vertical seperator*/
+.vertical-divider {
+    border-right: 3px solid #d8d8d8;
+}
+
+/**** IMAGE CAROUSEL ****/
+
+/* Code from W3 Schools https://www.w3schools.com/howto/howto_js_slideshow.asp */
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #000000;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+/* Fade to opaque */
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
