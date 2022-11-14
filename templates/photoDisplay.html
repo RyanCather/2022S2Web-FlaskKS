@@ -10,7 +10,7 @@
                         {% if image.photoid == 1 %}
                             <button class="btn btn-outline-secondary">← Previous Image</button>
                         {% else %}
-                            <form name="previous" method="GET" action="/userPhotos/{{ image.photoid - 1 }}">
+                            <form name="previous" method="GET" action="/static/images/userPhotos/{{ image.photoid - 1 }}">
                                 <button name="previous" class="btn btn-secondary">← Previous Image</button>
                             </form>
                         {% endif %}
